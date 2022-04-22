@@ -9,6 +9,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
   - remark
   - remark-html
   - gray-matter
+- To format the date
+  - date-fns
 
 ## Reference
 https://github.com/vercel/next.js/blob/canary/examples/blog-starter-typescript
