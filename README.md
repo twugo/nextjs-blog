@@ -2,6 +2,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 # Twugo's Blog
 
+## .gitignore
+
+- _posts
+  markdown folder
+
+- public/assets
+  images folder for posts
+
 ## using library
 - Component Library
   - MUI
