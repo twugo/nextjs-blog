@@ -3,7 +3,7 @@ type PostType = {
   title: string
   date: string
   content: string
-  tag?: string[]
+  tags?: string[]
   coverImage?: string
   excerpt?: string
   ogImage?: {

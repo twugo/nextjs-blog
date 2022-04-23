@@ -4,7 +4,7 @@ import Image from "next/image";
 import Post from "../types/post";
 
 import Card from '@mui/material/Card';
-import { CardActionArea } from "@mui/material";
+import { Stack, Chip, CardActionArea } from "@mui/material";
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
@@ -35,6 +35,15 @@ const PostPreview = ({ post }: Props) => {
             <Typography variant="body2" color="text.secondary">
               <DateFormatter dateString={post.date} />
             </Typography>
+            {post.tags &&
+              <Stack direction="row" spacing={1}>
+                {post.tags.map((tag: string) => {
+                  return (
+                    <Chip label={tag} key="tag" />
+                  )
+                })}
+              </Stack>
+            }
             {post.excerpt &&
               <>
                 <br />
