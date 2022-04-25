@@ -3,6 +3,7 @@ import ErrorPage from 'next/error'
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import path from "path";
 
 import Layout from "../../components/layout";
 import markdownToHtml from "../../lib/markdownToHtml";
@@ -18,22 +19,31 @@ type Props = {
 
 const Post = ({ post, morePosts, preview }: Props) => {
   const router = useRouter()
+  const baseUrl = {
+    production: process.env.NEXT_PUBLIC_PRODUCTION_BASE_URL,
+    development: process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL,
+    test: process.env.NEXT_PUBLIC_DEVELOPMENT_BASE_URL
+  }[process.env.NODE_ENV];
+
   if (!router.isFallback && !post?.slug) {
     return <ErrorPage statusCode={404} />
   }
 
   return (
     <Layout>
-      <Grid container justifyContent="center" alignItems="center">
-        <Grid item xs={8} wrap="wrap" zeroMinWidth={true}>
+      <Grid container wrap="wrap" justifyContent="center" alignItems="center">
+        <Grid item xs={8} zeroMinWidth>
           {router.isFallback ? (
             <h1>Loading...</h1>
           ) : (
             <>
               <Head>
                 <title>{post.title} | {'Twugo\'s Blog'}</title>
-                {post.ogImage &&
-                  <meta property="og:image" content={post.ogImage.url} />
+                {baseUrl && post.ogImage &&
+                  <meta property="og:image" content={path.join(baseUrl, post.ogImage.url)} />
+                }
+                {post.excerpt &&
+                  <meta name="description" content={post.excerpt} />
                 }
               </Head>
               {post.coverImage &&
@@ -84,7 +94,8 @@ export async function getStaticProps({ params }: Params) {
     'slug',
     'content',
     'coverImage',
-    'ogImage'
+    'ogImage',
+    'excerpt'
   ])
 
   const content = await markdownToHtml(post.content || '')
