@@ -43,11 +43,10 @@ const Index = ({ allPosts }: Props) => {
           </h1>
 
           <p className={styles.description}>
-            ゆっくりしていってね！！！
+            Engineering, Game, Poem
           </p>
 
           <section>
-            <h2>Blog</h2>
             {allPosts.map((post) => {
               return (
                 <div key={post.slug}>
